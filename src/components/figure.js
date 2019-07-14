@@ -13,7 +13,7 @@ class Figure extends Component {
     return (
       <Card>
         <Card.Header as="h3" className={this.props.headerBgClass}>
-          {20 + Math.floor(Math.random() * 20 - 10)} / 小时
+          {20 + Math.floor(Math.random() * 20 - 10)} / 天
           <FontAwesomeIcon
             icon={faYenSign}
             size="sm"

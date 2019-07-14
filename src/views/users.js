@@ -7,36 +7,36 @@ class Users extends Component {
     this.state = {
       users: [
         {
-          login: "刘德华",
+          login: "刘陪奇",
           mobile: "13699123123",
           email: "liudehua@jd.com",
           dailyReport: true,
           weeklyReport: true
         },
         {
-          login: "张惠妹",
-          mobile: "13699123123",
+          login: "张知乎",
+          mobile: "13499121231",
           email: "zhanghuimei@jd.com",
           dailyReport: false,
           weeklyReport: true
         },
         {
-          login: "范玮琪",
-          mobile: "13699123123",
+          login: "范宾果",
+          mobile: "1312312113",
           email: "fanweiqi@jd.com",
           dailyReport: false,
           weeklyReport: true
         },
         {
           login: "范玮",
-          mobile: "13699123123",
+          mobile: "13699123128",
           email: "fanwei@jd.com",
           dailyReport: false,
           weeklyReport: false
         },
         {
-          login: "爱克鲁斯",
-          mobile: "13699123123",
+          login: "董明子",
+          mobile: "13999123123",
           email: "akliusi@jd.com",
           dailyReport: false,
           weeklyReport: true
@@ -52,8 +52,7 @@ class Users extends Component {
         <td>{user.login}</td>
         <td>{user.mobile}</td>
         <td>{user.email}</td>
-        <td>{user.dailyReport}</td>
-        <td>{user.weeklyReport}</td>
+        <td>{user.dailyReport ? "是" : "否"}</td>
         <td>
           <ButtonGroup aria-label="Basic example">
             <Button variant="warning">修改</Button>
@@ -73,7 +72,6 @@ class Users extends Component {
           <th>电话</th>
           <th>Email</th>
           <th>每日消息</th>
-          <th>每周消息</th>
           <th></th>
         </thead>
 
