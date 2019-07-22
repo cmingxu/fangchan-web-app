@@ -44,9 +44,9 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <Nav.Link href="#home">主页</Nav.Link>
+            <Nav.Link href="#link">设置</Nav.Link>
+            <NavDropdown title="更多" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Another action
@@ -59,8 +59,8 @@ function App() {
             </NavDropdown>
           </Nav>
           <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            <FormControl type="text" placeholder="搜索" className="mr-sm-2" />
+            <Button variant="outline-success">搜索定位</Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
