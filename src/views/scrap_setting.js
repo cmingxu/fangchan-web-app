@@ -32,6 +32,22 @@ class ScrapSetting extends Component {
           beginAt: new Date(),
           proxy: true,
           variant: "danger"
+        },
+        {
+          name: "链家网App定时",
+          total: 600,
+          current: 532,
+          beginAt: new Date(),
+          proxy: true,
+          variant: "primary"
+        },
+        {
+          name: "58同城定时",
+          total: 3000,
+          current: 532,
+          beginAt: new Date(),
+          proxy: true,
+          variant: "default"
         }
       ],
       scrabData: [
@@ -39,7 +55,25 @@ class ScrapSetting extends Component {
           region: "望京",
           source: "soufang.com",
           name: "望京SOHO",
-          price: 123333,
+          price: 12,
+          taskId: "oeewqwec",
+          time: new Date()
+        },
+
+        {
+          region: "中关村",
+          source: "lianjia.com",
+          name: "新中关",
+          price: 22,
+          taskId: "oeewqwec",
+          time: new Date()
+        },
+
+        {
+          region: "望京",
+          source: "58.com",
+          name: "港旅大厦",
+          price: 22,
           taskId: "oeewqwec",
           time: new Date()
         },
@@ -47,26 +81,48 @@ class ScrapSetting extends Component {
         {
           region: "望京",
           source: "soufang.com",
-          name: "望京SOHO",
-          price: 123333,
+          name: "奔驰大厦",
+          price: 12,
           taskId: "oeewqwec",
           time: new Date()
         },
-
+        {
+          region: "望京",
+          source: "lianjia.com",
+          name: "望京大厦",
+          price: 12,
+          taskId: "oeewqwec",
+          time: new Date()
+        },
+        {
+          region: "望京",
+          source: "lianjia.com",
+          name: "浦项中心",
+          price: 12,
+          taskId: "oeewqwec",
+          time: new Date()
+        },
+        {
+          region: "望京",
+          source: "58.com",
+          name: "绿地中心",
+          price: 30,
+          taskId: "oeewqwec",
+          time: new Date()
+        },
         {
           region: "望京",
           source: "soufang.com",
           name: "望京SOHO",
-          price: 123333,
+          price: 12,
           taskId: "oeewqwec",
           time: new Date()
         },
-
         {
           region: "望京",
-          source: "soufang.com",
+          source: "58.com",
           name: "望京SOHO",
-          price: 123333,
+          price: 12,
           taskId: "oeewqwec",
           time: new Date()
         }
@@ -124,12 +180,15 @@ class ScrapSetting extends Component {
               <option>搜房</option>
               <option>搜狐房产</option>
               <option>新浪房产</option>
+              <option>58.com</option>
+              <option>lianjia.com</option>
+              <option>fangtianxia.com</option>
             </Form.Control>
           </Form.Group>
 
           <Button size="md">创建抓取任务</Button>
         </Form>
-        <Seperator></Seperator>
+        <Seperator title="抓取任务(5)"></Seperator>
         <Table striped bordered hover size="sm">
           <thead>
             <th>称呼</th>
@@ -147,10 +206,10 @@ class ScrapSetting extends Component {
         <Seperator title="抓取数据Sample"></Seperator>
         <Table striped bordered hover size="sm">
           <thead>
-            <th></th>
             <th>楼盘</th>
             <th>区域</th>
             <th>价格</th>
+            <th>数据来源</th>
             <th>抓取时间</th>
             <th>抓取任务</th>
           </thead>
