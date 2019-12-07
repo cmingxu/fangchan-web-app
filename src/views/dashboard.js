@@ -3,14 +3,23 @@ import Figure from "../components/figure";
 import { Row, Col } from "react-bootstrap";
 import LineChart from "../components/lineChart";
 import Separator from "../components/seperator";
+import HTTPApi from "../api/httpApi";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      houses: []
+    };
+  }
+  componentDidMount() {
+    // HTTPApi.getHouses({}).then(houses => {
+    //   this.setState({
+    //     houses: houses
+    //   });
+    // });
   }
   render() {
-    const styles = {};
     return (
       <Fragment>
         <Separator title="重点区域价格"></Separator>

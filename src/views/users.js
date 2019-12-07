@@ -83,7 +83,6 @@ class Users extends Component {
       </Table>
     );
   }
-  
 }
 
 export default Users;

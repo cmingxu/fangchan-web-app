@@ -11,12 +11,14 @@ import {
 } from "react-bootstrap";
 import CONFIG from "./config";
 import Sidebar from "./components/sidebar";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Dashboard from "./views/dashboard";
 import Users from "./views/users";
 import Settings from "./views/settings";
 import ScrapSetting from "./views/scrap_setting";
 import Trending from "./views/trending";
+import User from "./api/user";
+import SigninPage from "./pages/signin_page";
 
 function App() {
   const styles = {
@@ -37,6 +39,27 @@ function App() {
       padding: "10px"
     }
   };
+
+  let LoggedInRoute = function({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        // render={({ location }) =>
+        //   User.isLoggedIn() ? (
+        //     children
+        //   ) : (
+        //     <Redirect
+        //       to={{
+        //         path: "/login",
+        //         state: { from: location }
+        //       }}
+        //     />
+        //   )
+        // }
+      />
+    );
+  };
+
   return (
     <Router>
       <Navbar bg="warning" expand="lg">
@@ -70,11 +93,18 @@ function App() {
           <Sidebar></Sidebar>
         </div>
         <div style={styles.main}>
-          <Route path="/dashboard" component={Dashboard}></Route>
-          <Route path="/users" component={Users}></Route>
-          <Route path="/setting" component={Settings}></Route>
-          <Route path="/scrap_setting" component={ScrapSetting}></Route>
-          <Route path="/trending" component={Trending}></Route>
+          <LoggedInRoute
+            path="/dashboard"
+            component={Dashboard}
+          ></LoggedInRoute>
+          <LoggedInRoute path="/users" component={Users}></LoggedInRoute>
+          <LoggedInRoute path="/setting" component={Settings}></LoggedInRoute>
+          <LoggedInRoute
+            path="/scrap_setting"
+            component={ScrapSetting}
+          ></LoggedInRoute>
+          <LoggedInRoute path="/trending" component={Trending}></LoggedInRoute>
+          <Route path="/login" component={SigninPage}></Route>
         </div>
       </Container>
     </Router>
