@@ -8,6 +8,10 @@ class Circle extends HTTPApi {
   static search(option) {
     return HTTPApi.get("api/circles/search", option);
   }
+
+  static favorite_stats() {
+    return HTTPApi.get("api/circles/favorite_stats");
+  }
 }
 
 export default Circle;

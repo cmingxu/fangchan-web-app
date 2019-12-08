@@ -8,6 +8,10 @@ class City extends HTTPApi {
   static search(option) {
     return HTTPApi.get("api/cities/search", option);
   }
+
+  static stats(option) {
+    return HTTPApi.get("api/cities/stats", option);
+  }
 }
 
 export default City;

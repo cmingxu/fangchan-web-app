@@ -40,22 +40,17 @@ function App() {
     }
   };
 
-  let LoggedInRoute = function({ children, ...rest }) {
+  let LoggedInRoute = function({ component: Component, ...rest }) {
     return (
       <Route
         {...rest}
-        // render={({ location }) =>
-        //   User.isLoggedIn() ? (
-        //     children
-        //   ) : (
-        //     <Redirect
-        //       to={{
-        //         path: "/login",
-        //         state: { from: location }
-        //       }}
-        //     />
-        //   )
-        // }
+        render={props =>
+          User.isLoggedIn() ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
       />
     );
   };

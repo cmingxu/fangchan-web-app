@@ -13,7 +13,7 @@ class Figure extends Component {
     return (
       <Card>
         <Card.Header as="h3" className={this.props.headerBgClass}>
-          {20 + Math.floor(Math.random() * 20 - 10)} / 天
+          {this.state.avg_price_per_day} / 天
           <FontAwesomeIcon
             icon={faYenSign}
             size="sm"
@@ -36,7 +36,9 @@ Figure.defaultProps = {
 Figure.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  figure: PropTypes.number,
+  avg_price_per_day: PropTypes.number,
+  total_count: PropTypes.number,
+  total_squre: PropTypes.number,
   headerBgClass: PropTypes.string
 };
 

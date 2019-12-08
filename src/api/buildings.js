@@ -8,6 +8,10 @@ class Building extends HTTPApi {
   static search(option) {
     return HTTPApi.get("api/buildings/search", option);
   }
+
+  static favorite_stats() {
+    return HTTPApi.get("api/buildings/favorite_stats");
+  }
 }
 
 export default Building;

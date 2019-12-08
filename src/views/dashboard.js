@@ -3,96 +3,121 @@ import Figure from "../components/figure";
 import { Row, Col } from "react-bootstrap";
 import LineChart from "../components/lineChart";
 import Separator from "../components/seperator";
-import HTTPApi from "../api/httpApi";
+import Building from "../api/buildings";
+import Circles from "../api/circles";
+import Region from "../api/regions";
+import City from "../api/cities";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      houses: []
+      buildingStats: [],
+      regionStats: [],
+      circleStats: [],
+      cityStats: []
     };
   }
   componentDidMount() {
-    // HTTPApi.getHouses({}).then(houses => {
-    //   this.setState({
-    //     houses: houses
-    //   });
-    // });
+    Building.favorite_stats().then(res => {
+      this.setState({ buildingStats: res });
+    });
+
+    Circles.favorite_stats().then(res => {
+      this.setState({ circleStats: res });
+    });
+
+    Region.favorite_stats().then(res => {
+      this.setState({ regionStats: res });
+    });
+
+    City.stats({}).then(res => {
+      this.setState({ cityStats: res });
+    });
   }
+  renderBuildings() {
+    return this.state.buildingStats.map(stats => {
+      let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
+      return (
+        <Col md="3">
+          <Figure
+            key={stats.name}
+            title={stats.name}
+            text={text}
+            avg_price_per_day={stats.avg_price_per_day}
+            total_count={stats.total_count}
+            total_square={stats.total_square}
+          ></Figure>
+        </Col>
+      );
+    });
+  }
+  renderCircles() {
+    return this.state.circleStats.map(stats => {
+      let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
+      return (
+        <Col md="3">
+          <Figure
+            title={stats.name}
+            text={text}
+            avg_price_per_day={stats.avg_price_per_day}
+            total_count={stats.total_count}
+            total_square={stats.total_square}
+          ></Figure>
+        </Col>
+      );
+    });
+  }
+
+  renderRegions() {
+    return this.state.regionStats.map(stats => {
+      let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
+      return (
+        <Col md="3">
+          <Figure
+            title={stats.name}
+            text={text}
+            avg_price_per_day={stats.avg_price_per_day}
+            total_count={stats.total_count}
+            total_square={stats.total_square}
+          ></Figure>
+        </Col>
+      );
+    });
+  }
+
+  renderCities() {
+    return this.state.cityStats.map(stats => {
+      let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
+      return (
+        <Col md="3">
+          <Figure
+            title={stats.name}
+            text={text}
+            avg_price_per_day={stats.avg_price_per_day}
+            total_count={stats.total_count}
+            total_square={stats.total_square}
+          ></Figure>
+        </Col>
+      );
+    });
+  }
+
   render() {
     return (
       <Fragment>
-        <Separator title="重点区域价格"></Separator>
-        <Row>
-          <Col md="3">
-            <Figure
-              title="望京商圈"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
-
-          <Col md="3">
-            <Figure
-              title="中关村商圈"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
-
-          <Col md="3">
-            <Figure
-              title="三里屯商圈"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-              headerBgClass="bg-primary"
-            ></Figure>
-          </Col>
-
-          <Col md="3">
-            <Figure
-              title="大望路地铁"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
-        </Row>
+        <Separator title="全国主要城市"></Separator>
+        <Row>{this.renderCities()}</Row>
 
         <Separator title="我关注的楼盘"></Separator>
-        <Row>
-          <Col md="3">
-            <Figure
-              title="中钢大厦"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
+        <Row>{this.renderBuildings()}</Row>
 
-          <Col md="3">
-            <Figure
-              title="国贸三期"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
+        <Separator title="我关注的热点区域"></Separator>
+        <Row> {this.renderCircles()}</Row>
 
-          <Col md="3">
-            <Figure
-              title="北辰世纪广场"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-              headerBgClass="bg-danger"
-            ></Figure>
-          </Col>
+        <Separator title="我关注的县市"></Separator>
+        <Row> {this.renderRegions()}</Row>
 
-          <Col md="3">
-            <Figure
-              title="向阳里小学"
-              text="2013-22-10日北京市场平均价格"
-              figure={123410.1}
-            ></Figure>
-          </Col>
-        </Row>
         <Separator title="北京写字楼价格趋势"></Separator>
         <div style={{ height: "280px" }}>
           <LineChart></LineChart>

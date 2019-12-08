@@ -15,17 +15,34 @@ class HTTPApi {
     }
   }
 
-  static get(path, option) {
-    return fetch(HTTPApi.pathWithQuery(path, option.query), {
+  static default_headers(headers = {}) {
+    let default_headers = {
+      "Content-Type": "application/json",
+      Token: "42c3422ed1eb08df4a68"
+    };
+
+    // if (User.current_user) {
+    //   headers.Token = User.current_user.token;
+    // }
+    return Object.assign(default_headers, headers);
+  }
+
+  static get(path, option = null) {
+    let query = option ? option.query : {};
+    let headers = option ? option.headers : {};
+    return fetch(HTTPApi.pathWithQuery(path, query), {
       method: "GET",
-      headers: { "Content-Type": "application/json" }
+      headers: HTTPApi.default_headers(headers)
     }).then(response => response.json());
   }
 
   static post(path, option, body) {
-    return fetch(HTTPApi.pathWithQuery(path, option.query), {
+    let query = option ? option.query : {};
+    let headers = option ? option.headers : {};
+    return fetch(HTTPApi.pathWithQuery(path, query), {
       method: "POST",
-      headers: { "Content-Type": "application/json" }
+      headers: HTTPApi.default_headers(headers),
+      body: JSON.stringify(body)
     }).then(response => response.json());
   }
 }
