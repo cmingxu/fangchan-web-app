@@ -18,7 +18,7 @@ class HTTPApi {
   static default_headers(headers = {}) {
     let default_headers = {
       "Content-Type": "application/json",
-      Token: "42c3422ed1eb08df4a68"
+      Token: CONFIG.accountToken
     };
 
     // if (User.current_user) {

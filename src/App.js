@@ -15,6 +15,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Dashboard from "./views/dashboard";
 import Users from "./views/users";
 import Settings from "./views/settings";
+import Map from "./views/maps";
 import ScrapSetting from "./views/scrap_setting";
 import Trending from "./views/trending";
 import User from "./api/user";
@@ -62,8 +63,9 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">主页</Nav.Link>
-            <Nav.Link href="#link">设置</Nav.Link>
+            <Nav.Link href="/dashboard">主页</Nav.Link>
+            <Nav.Link href="/setting">设置</Nav.Link>
+            {/*
             <NavDropdown title="更多" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -75,10 +77,11 @@ function App() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
+            */}
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="搜索" className="mr-sm-2" />
-            <Button variant="outline-success">搜索定位</Button>
+            <Button variant="outline-success">搜索</Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
@@ -93,6 +96,7 @@ function App() {
             component={Dashboard}
           ></LoggedInRoute>
           <LoggedInRoute path="/users" component={Users}></LoggedInRoute>
+          <LoggedInRoute path="/maps" component={Map}></LoggedInRoute>
           <LoggedInRoute path="/setting" component={Settings}></LoggedInRoute>
           <LoggedInRoute
             path="/scrap_setting"

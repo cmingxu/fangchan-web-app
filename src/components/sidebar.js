@@ -26,6 +26,11 @@ export default class Sidebar extends Component {
           <FontAwesomeIcon icon={faChartLine} />
           &nbsp; 价格趋势
         </Nav.Link>
+        <Nav.Link eventKey="link-2" href="/maps">
+          <FontAwesomeIcon icon={faBlog} />
+          &nbsp; 地图展示
+        </Nav.Link>
+        {/* 
         <Nav.Link eventKey="link-2" href="/users">
           <FontAwesomeIcon icon={faUsers} />
           &nbsp; 用户&通知
@@ -34,6 +39,7 @@ export default class Sidebar extends Component {
           <FontAwesomeIcon icon={faBlog} />
           &nbsp; 抓取程序
         </Nav.Link>
+        */}
         <Nav.Link eventKey="disabled" disabled>
           其他
         </Nav.Link>
