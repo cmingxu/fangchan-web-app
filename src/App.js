@@ -11,7 +11,12 @@ import {
 } from "react-bootstrap";
 import CONFIG from "./config";
 import Sidebar from "./components/sidebar";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 import Dashboard from "./views/dashboard";
 import Users from "./views/users";
 import Settings from "./views/settings";
@@ -91,19 +96,24 @@ function App() {
           <Sidebar></Sidebar>
         </div>
         <div style={styles.main}>
-          <LoggedInRoute
-            path="/dashboard"
-            component={Dashboard}
-          ></LoggedInRoute>
-          <LoggedInRoute path="/users" component={Users}></LoggedInRoute>
-          <LoggedInRoute path="/maps" component={Map}></LoggedInRoute>
-          <LoggedInRoute path="/setting" component={Settings}></LoggedInRoute>
-          <LoggedInRoute
-            path="/scrap_setting"
-            component={ScrapSetting}
-          ></LoggedInRoute>
-          <LoggedInRoute path="/trending" component={Trending}></LoggedInRoute>
-          <Route path="/login" component={SigninPage}></Route>
+          <Switch>
+            <LoggedInRoute
+              path="/dashboard"
+              component={Dashboard}
+            ></LoggedInRoute>
+            <LoggedInRoute path="/users" component={Users}></LoggedInRoute>
+            <LoggedInRoute path="/maps" component={Map}></LoggedInRoute>
+            <LoggedInRoute path="/setting" component={Settings}></LoggedInRoute>
+            <LoggedInRoute
+              path="/scrap_setting"
+              component={ScrapSetting}
+            ></LoggedInRoute>
+            <LoggedInRoute
+              path="/trending"
+              component={Trending}
+            ></LoggedInRoute>
+            <Route path="/login" component={SigninPage}></Route>
+          </Switch>
         </div>
       </Container>
     </Router>
