@@ -14,11 +14,11 @@ class User extends HTTPApi {
   // assign active accounts and user
   static login(login, password) {}
   static async async_login(login, password) {
-    let body = {
-      login: login,
-      password: password
-    };
-    const token = await HTTPApi.post("api/user/login", {}, body);
+    // let body = {
+    //   login: login,
+    //   password: password
+    // };
+    // const token = await HTTPApi.post("api/user/login", {}, body);
   }
 
   // logout current user
