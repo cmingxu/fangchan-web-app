@@ -4,7 +4,6 @@ import {
   Container,
   Nav,
   Navbar,
-  NavDropdown,
   Form,
   FormControl,
   Button
@@ -23,8 +22,9 @@ import Settings from "./views/settings";
 import Map from "./views/maps";
 import ScrapSetting from "./views/scrap_setting";
 import Trending from "./views/trending";
-import User from "./api/user";
 import SigninPage from "./pages/signin_page";
+import Version from "./views/version";
+import User from "./api/user";
 
 function App() {
   const styles = {
@@ -104,6 +104,7 @@ function App() {
             <LoggedInRoute path="/users" component={Users}></LoggedInRoute>
             <LoggedInRoute path="/maps" component={Map}></LoggedInRoute>
             <LoggedInRoute path="/setting" component={Settings}></LoggedInRoute>
+            <LoggedInRoute path="/version" component={Version}></LoggedInRoute>
             <LoggedInRoute
               path="/scrap_setting"
               component={ScrapSetting}

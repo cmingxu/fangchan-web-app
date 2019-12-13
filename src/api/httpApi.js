@@ -2,6 +2,7 @@ import CONFIG from "../config";
 import queryString from "query-string";
 
 class HTTPApi {
+  constructor() {}
   static pathWithQuery(path, query) {
     if (query) {
       return (

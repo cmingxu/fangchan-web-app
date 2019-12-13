@@ -49,12 +49,15 @@ class User extends HTTPApi {
   // return all statistics for favorite_regions
   favorite_region_stats() {}
 
-  update_favorite_buildings(new_favorite_buildings) {}
+  update_favorite_buildings(new_favorite_buildings) {
+    const params = { building_names: new_favorite_buildings };
+    return HTTPApi.post("api/user/update_favorite_buildings", {}, params);
+  }
   update_favorite_regions(new_favorite_regions) {}
   update_favorite_circles(new_favorite_circles) {}
 }
 
-User.current_user = null;
+User.current_user = new User();
 
 User.isLoggedIn = function() {
   return true;
