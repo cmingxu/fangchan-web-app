@@ -19,8 +19,6 @@ class User extends HTTPApi {
       password: password
     };
     const token = await HTTPApi.post("api/user/login", {}, body);
-    console.log(token);
-    const response = await HTTPApi.get();
   }
 
   // logout current user
@@ -28,11 +26,8 @@ class User extends HTTPApi {
 
   async reload_me() {
     let self = this;
-    let headers = {
-      Token: "1e762f71a8138cfcaa77"
-    };
-    HTTPApi.get("api/user/me", { headers: headers }).then(res => {
-      let body = res.json();
+    await HTTPApi.get("api/user/me", {}).then(res => {
+      let body = res.user;
       self.name = body.name;
       self.desc = body.desc;
       self.city_identity = body.city_identity;
@@ -53,8 +48,14 @@ class User extends HTTPApi {
     const params = { building_names: new_favorite_buildings };
     return HTTPApi.post("api/user/update_favorite_buildings", {}, params);
   }
-  update_favorite_regions(new_favorite_regions) {}
-  update_favorite_circles(new_favorite_circles) {}
+  update_favorite_regions(new_favorite_regions) {
+    const params = { region_names: new_favorite_regions };
+    return HTTPApi.post("api/user/update_favorite_regions", {}, params);
+  }
+  update_favorite_circles(new_favorite_circles) {
+    const params = { circle_names: new_favorite_circles };
+    return HTTPApi.post("api/user/update_favorite_circles", {}, params);
+  }
 }
 
 User.current_user = new User();

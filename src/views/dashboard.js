@@ -18,30 +18,30 @@ class Dashboard extends Component {
       cityStats: []
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     Building.favorite_stats().then(res => {
-      this.setState({ buildingStats: res });
+      this.setState({ buildingStats: res ? res : [] });
     });
 
     Circles.favorite_stats().then(res => {
-      this.setState({ circleStats: res });
+      this.setState({ circleStats: res ? res : [] });
     });
 
     Region.favorite_stats().then(res => {
-      this.setState({ regionStats: res });
+      this.setState({ regionStats: res ? res : [] });
     });
 
     City.stats({}).then(res => {
-      this.setState({ cityStats: res });
+      this.setState({ cityStats: res ? res : [] });
     });
   }
   renderBuildings() {
-    return this.state.buildingStats.map(stats => {
+    return this.state.buildingStats.map((stats, idx) => {
       let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
       return (
         <Col md="3" lg="2">
           <Figure
-            key={stats.name}
+            key={idx}
             title={stats.name}
             text={text}
             avg_price_per_day={stats.avg_price_per_day}
@@ -58,6 +58,7 @@ class Dashboard extends Component {
       return (
         <Col md="3" lg="2">
           <Figure
+            key={stats.name}
             title={stats.name}
             text={text}
             avg_price_per_day={stats.avg_price_per_day}
@@ -75,6 +76,7 @@ class Dashboard extends Component {
       return (
         <Col md="3" lg="2">
           <Figure
+            key={stats.name}
             title={stats.name}
             text={text}
             avg_price_per_day={stats.avg_price_per_day}
@@ -92,6 +94,7 @@ class Dashboard extends Component {
       return (
         <Col md="3" lg="2">
           <Figure
+            key={stats.name}
             title={stats.name}
             text={text}
             avg_price_per_day={stats.avg_price_per_day}

@@ -10,20 +10,16 @@ class Favorite extends Component {
     this.state = { selectedOption: props.selectedOption, option: props.option };
   }
   render() {
-    const { handleChange, handleInputValue, title, icon, ...rest } = this.props;
+    const { onChange, onInputChange, title, icon, ...rest } = this.props;
 
     return (
-      <Card className="w-100">
+      <Card className="w-100 m-1">
         <Card.Header as="p" className={"bg-default"}>
           {title}
           <FontAwesomeIcon icon={icon} size="sm" pull="right"></FontAwesomeIcon>
         </Card.Header>
         <Card.Body>
-          <Select
-            {...rest}
-            onChange={handleChange}
-            onInputChange={handleInputValue}
-          />
+          <Select {...rest} onChange={onChange} onInputChange={onInputChange} />
         </Card.Body>
       </Card>
     );

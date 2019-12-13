@@ -36,7 +36,6 @@ Figure.defaultProps = {
 Figure.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  avg_price_per_day: PropTypes.number,
   total_count: PropTypes.number,
   total_squre: PropTypes.number,
   headerBgClass: PropTypes.string

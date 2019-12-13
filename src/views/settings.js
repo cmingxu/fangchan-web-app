@@ -1,48 +1,44 @@
 import React, { Component } from "react";
-import Select from "react-select";
-import { Row, Card, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYenSign } from "@fortawesome/free-solid-svg-icons";
+import { Row, Col } from "react-bootstrap";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Building from "../api/buildings";
+import Circle from "../api/circles";
+import Region from "../api/regions";
 import User from "../api/user";
 import Favorite from "../components/favorite";
 
 class Settings extends Component {
   state = {
     selectedBuildingVo: null,
-    availableBuildings: []
-  };
+    availableBuildings: [],
 
-  handleInputValue = value => {
-    if (value.length > 1) {
-      let option = { query: { q: value } };
-      Building.search(option).then(res => {
-        let options = res.map(building => {
-          return {
-            value: building.building_name,
-            label: building.building_name
-          };
-        });
-        this.setState({ options: options });
-      });
-    }
-  };
+    selectedCircleVo: null,
+    availableCircles: [],
 
-  handleChange = selectedOption => {
-    console.log(`Option selected:`, selectedOption);
-    let normalizedOption = selectedOption ? selectedOption : [];
-    this.setState({ selectedOption: normalizedOption });
-    if (normalizedOption.length !== 0) {
-      let favorite_building_names = normalizedOption.map(option => {
-        return option.value;
-      });
-      console.log("favorite:", favorite_building_names);
-      User.current_user.update_favorite_buildings(favorite_building_names);
-    }
+    selectedRegionVo: null,
+    availableRegions: []
   };
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    let formatVo = list => {
+      return list.map(name => {
+        return { label: name, value: name };
+      });
+    };
+    User.current_user.reload_me().then(() => {
+      this.setState({
+        selectedBuildingVo: formatVo(User.current_user.favorite_buildings),
+        selectedCircleVo: formatVo(User.current_user.favorite_circles),
+        selectedRegionVo: formatVo(User.current_user.favorite_regions)
+      });
+    });
+  }
 
   onBuildingInputChange = value => {
-    console.log(value, "xxxxxxxxxxxxxx");
     if (value.length > 1) {
       let option = { query: { q: value } };
       Building.search(option).then(res => {
@@ -52,67 +48,122 @@ class Settings extends Component {
             label: building.building_name
           };
         });
-        this.setState({ options: options });
+        this.setState({ availableBuildings: options });
       });
     }
   };
 
   onBuildingChange = selectedOption => {
-    console.log(`Option selected:11111111`, selectedOption);
     let normalizedOption = selectedOption ? selectedOption : [];
-    this.setState({ selectedOption: normalizedOption });
+    this.setState({ selectedBuildingVo: normalizedOption });
     if (normalizedOption.length !== 0) {
       let favorite_building_names = normalizedOption.map(option => {
         return option.value;
       });
-      console.log("favorite:", favorite_building_names);
       User.current_user.update_favorite_buildings(favorite_building_names);
     }
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  onCircleInputChange = value => {
+    if (value.length > 1) {
+      let option = { query: { q: value } };
+      Circle.search(option).then(res => {
+        let options = res.map(circle => {
+          return {
+            value: circle.name,
+            label: circle.name
+          };
+        });
+        this.setState({ availableCircles: options });
+      });
+    }
+  };
+
+  onCircleChange = selectedOption => {
+    let normalizedOption = selectedOption ? selectedOption : [];
+    this.setState({ selectedCircleVo: normalizedOption });
+    if (normalizedOption.length !== 0) {
+      let favorite_circle_names = normalizedOption.map(option => {
+        return option.value;
+      });
+      User.current_user.update_favorite_circles(favorite_circle_names);
+    }
+  };
+
+  onRegionInputChange = value => {
+    if (value.length > 1) {
+      let option = { query: { q: value } };
+      Region.search(option).then(res => {
+        let options = res.map(circle => {
+          return {
+            value: circle.name,
+            label: circle.name
+          };
+        });
+        this.setState({ availableCircles: options });
+      });
+    }
+  };
+
+  onRegionChange = selectedOption => {
+    let normalizedOption = selectedOption ? selectedOption : [];
+    this.setState({ selectedCircleVo: normalizedOption });
+    if (normalizedOption.length !== 0) {
+      let favorite_region_names = normalizedOption.map(option => {
+        return option.value;
+      });
+      User.current_user.update_favorite_regions(favorite_region_names);
+    }
+  };
+
   render() {
-    const { selectedBuildingVo: selectedOption, availableBuildings: options } = this.state;
+    const { selectedBuildingVo, availableBuildings } = this.state;
+    const { selectedCircleVo, availableCircles } = this.state;
+    const { selectedRegionVo, availableRegions } = this.state;
 
     return (
       <div>
         <Row>
           <Col>
-            <Card className="w-100">
-              <Card.Header as="p" className={"bg-default"}>
-                我关注的楼盘
-                <FontAwesomeIcon
-                  icon={faYenSign}
-                  size="sm"
-                  pull="right"
-                ></FontAwesomeIcon>
-              </Card.Header>
-              <Card.Body>
-                <Select
-                  isMulti={true}
-                  isSearchable={true}
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  onInputChange={this.handleInputValue}
-                  options={options}
-                />
-              </Card.Body>
-            </Card>
+            <Favorite
+              isMulti={true}
+              isSearchable={true}
+              icon={faHeart}
+              title="我关注的楼盘"
+              onChange={this.onBuildingChange}
+              onInputChange={this.onBuildingInputChange}
+              value={selectedBuildingVo}
+              options={availableBuildings}
+            ></Favorite>
           </Col>
+        </Row>
 
+        <Row>
           <Col>
             <Favorite
               isMulti={true}
               isSearchable={true}
-              icon={faYenSign}
-              title="我关注的楼盘"
-              onChange={this.onBuildingChange}
-              onInputChange={this.onBuildingInputChange}
-              value={selectedOption}
-              options={options}
+              icon={faHeart}
+              title="我关注的热点区域"
+              onChange={this.onCircleChange}
+              onInputChange={this.onCircleInputChange}
+              value={selectedCircleVo}
+              options={availableCircles}
+            ></Favorite>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Favorite
+              isMulti={true}
+              isSearchable={true}
+              icon={faHeart}
+              title="我关注的地区"
+              onChange={this.onRegionChange}
+              onInputChange={this.onRegionInputChange}
+              value={selectedRegionVo}
+              options={availableRegions}
             ></Favorite>
           </Col>
         </Row>
