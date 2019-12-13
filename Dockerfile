@@ -21,4 +21,4 @@ RUN npm run build
 EXPOSE 5000
 
 # start app
-CMD ["./start"]
+CMD ["sh", "-c", "./start.sh"]
