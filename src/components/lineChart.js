@@ -5,12 +5,13 @@ import React, { Component } from "react";
 class LineChart extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    console.log(props.data);
+    this.state = { data: props.data, legend: props.legend };
   }
   render() {
     return (
       <ResponsiveLine
-        data={data}
+        data={this.state.data}
         margin={{
           top: 50,
           right: 110,
@@ -33,7 +34,7 @@ class LineChart extends Component {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: this.state.legend,
           legendOffset: 36,
           legendPosition: "middle"
         }}
@@ -42,7 +43,7 @@ class LineChart extends Component {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "111",
           legendOffset: -40,
           legendPosition: "middle"
         }}

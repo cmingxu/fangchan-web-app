@@ -7,6 +7,7 @@ import Building from "../api/buildings";
 import Circles from "../api/circles";
 import Region from "../api/regions";
 import City from "../api/cities";
+import User from "../api/user";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,10 +16,46 @@ class Dashboard extends Component {
       buildingStats: [],
       regionStats: [],
       circleStats: [],
-      cityStats: []
+      cityStats: [],
+      city_name: "",
+      data: [
+        {
+          color: "hsl(0, 70%, 50%)",
+          id: "undefined",
+          data: []
+        }
+      ]
     };
   }
   componentWillMount() {
+    User.current_user
+      .reload_me()
+      .then(() => {
+        this.setState({ city_name: User.current_user.city_name });
+        let data_0 = this.state.data[0];
+        // data_0.id = User.current_user.city_name;
+        data_0.id = "";
+        this.setState({ data: [data_0] });
+      })
+      .then(() => {
+        City.trendings(User.current_user.city_identity).then(res => {
+          let data_0 = this.state.data[0];
+          data_0.data = res.map(item => {
+            let y = 0;
+            try {
+              y = parseFloat(item.avg_price_per_day);
+            } catch (e) {
+              y = 0;
+            }
+            return {
+              x: item.begin_date,
+              y: y
+            };
+          });
+          this.setState({ data: [data_0] });
+          console.log(this.state);
+        });
+      });
     Building.favorite_stats().then(res => {
       this.setState({ buildingStats: res ? res : [] });
     });
@@ -56,7 +93,7 @@ class Dashboard extends Component {
     return this.state.circleStats.map(stats => {
       let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
       return (
-        <Col md="3" lg="2">
+        <Col md="3" lg="2" key={stats.name}>
           <Figure
             key={stats.name}
             title={stats.name}
@@ -74,7 +111,7 @@ class Dashboard extends Component {
     return this.state.regionStats.map(stats => {
       let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
       return (
-        <Col md="3" lg="2">
+        <Col md="3" lg="2" key={stats.name}>
           <Figure
             key={stats.name}
             title={stats.name}
@@ -92,7 +129,7 @@ class Dashboard extends Component {
     return this.state.cityStats.map(stats => {
       let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
       return (
-        <Col md="3" lg="2">
+        <Col md="3" lg="2" key={stats.name}>
           <Figure
             key={stats.name}
             title={stats.name}
@@ -107,6 +144,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    let title = `${this.state.city_name}写字楼价格趋势`;
     return (
       <Fragment>
         <Separator title="全国主要城市"></Separator>
@@ -121,9 +159,9 @@ class Dashboard extends Component {
         <Separator title="我关注的县市"></Separator>
         <Row> {this.renderRegions()}</Row>
 
-        <Separator title="北京写字楼价格趋势"></Separator>
+        <Separator title={title}></Separator>
         <div style={{ height: "280px" }}>
-          <LineChart></LineChart>
+          <LineChart data={this.state.data} legend={title}></LineChart>
         </div>
       </Fragment>
     );

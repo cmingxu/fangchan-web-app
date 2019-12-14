@@ -12,6 +12,13 @@ class City extends HTTPApi {
   static stats(option) {
     return HTTPApi.get("api/cities/stats", option);
   }
+
+  static trendings(city_identity = "bj") {
+    return HTTPApi.get(
+      "api/cities/trending?city_identity=" + city_identity,
+      {}
+    );
+  }
 }
 
 export default City;

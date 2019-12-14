@@ -5,6 +5,7 @@ class User extends HTTPApi {
   name = "";
   desc = "";
   city_identity = "";
+  city_name = "";
   favorite_buildings = [];
   favorite_regions = [];
   favorite_circles = [];
@@ -31,6 +32,7 @@ class User extends HTTPApi {
       self.name = body.name;
       self.desc = body.desc;
       self.city_identity = body.city_identity;
+      self.city_name = body.city_name;
       self.favorite_buildings = body.favorite_buildings;
       self.favorite_circles = body.favorite_circles;
       self.favorite_regions = body.favorite_regions;
