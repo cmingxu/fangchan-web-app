@@ -1,39 +1,73 @@
 import React, { Component, Fragment } from "react";
-import { Map } from "react-amap";
+import { Map, Marker } from "react-amap";
 import { Col, Row, Table } from "react-bootstrap";
-import Heatmap from "react-amap-plugin-heatmap";
 import Circle from "../api/circles";
 import Building from "../api/buildings";
 
+const defaultPosition = { longitude: 116.418261, latitude: 39.921984 };
 class AMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
       circles: [],
       current_page: 0,
-      center: { longitude: 116.418261, latitude: 39.921984 },
-      points: [
-        { lng: 116.191031, lat: 39.988585, count: 10 },
-        { lng: 116.389275, lat: 39.925818, count: 11 },
-        { lng: 116.287444, lat: 39.810742, count: 12 },
-        { lng: 116.481707, lat: 39.940089, count: 13 },
-        { lng: 116.410588, lat: 39.880172, count: 14 },
-        { lng: 116.394816, lat: 39.91181, count: 15 },
-        { lng: 116.416002, lat: 39.952917, count: 56 }
-      ]
+      center: defaultPosition,
+      currentCircleBuildings: []
     };
   }
 
   componentWillMount() {
-    Circle.stats({ query: { per_page: 100 } }).then(res => {
+    Circle.stats({ query: { per_page: 400 } }).then(res => {
       this.setState({ circles: res });
     });
   }
 
   redrawMap(circle_name) {
-    Building.list({ query: { circle_name_eq: circle_name } }).then(res => {
-      console.log(res);
-    });
+    Building.list({ query: { "q[circle_name_eq]": circle_name } })
+      .then(res => {
+        this.setState({ currentCircleBuildings: res });
+      })
+      .then(res => {
+        let centerBuilding = this.state.currentCircleBuildings.find(
+          building => {
+            if (building.latitude !== null && building.longitude !== null) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        );
+
+        if (centerBuilding === null || centerBuilding === undefined) {
+          centerBuilding = defaultPosition;
+        }
+        this.setState({
+          center: {
+            latitude: centerBuilding.latitude,
+            longitude: centerBuilding.longitude
+          }
+        });
+      });
+  }
+
+  renderBuildingMarkers() {
+    return this.state.currentCircleBuildings
+      .filter(building => {
+        return building.latitude !== null && building.longitude !== null;
+      })
+      .map(building => {
+        let position = {
+          longitude: parseFloat(building.longitude),
+          latitude: parseFloat(building.latitude)
+        };
+        return (
+          <Marker
+            key={position.latitude}
+            visible={true}
+            position={position}
+          ></Marker>
+        );
+      });
   }
 
   renderCircles() {
@@ -62,50 +96,24 @@ class AMap extends Component {
   }
 
   render() {
-    const { center, points } = this.state;
-    // config props
-    const visible = true;
-    const radius = 30;
-    const gradient = {
-      "0.4": "rgb(0, 255, 255)",
-      "0.65": "rgb(0, 110, 255)",
-      "0.85": "rgb(100, 0, 255)",
-      "1.0": "rgb(100, 0, 255)"
-    };
-    const zoom = 16;
-    const zooms = [1, 18];
-    const isHotspot = true;
-    const dataSet = {
-      data: points,
-      max: 100
-    };
+    const { center } = this.state;
+    const zoom = 13;
 
-    const features = ["bg", "road", "building"];
-    const pluginProps = {
-      visible,
-      radius,
-      gradient,
-      zooms,
-      dataSet,
-      zoom,
-      features,
-      isHotspot
+    const mapProps = {
+      zoom
     };
 
     const styles = {
       scrollY: {
-        overflow: "auto"
-      },
-      fixHeight: {
-        height: "1000px"
+        overflowY: "scroll"
       }
     };
 
     return (
       <Fragment>
-        <Row className="" style={styles.fixHeight}>
-          <Col md="4" style={styles}>
-            <Table striped bordered hover size="sm">
+        <Row>
+          <Col md="4" style={styles.scrollY} className="vh-100">
+            <Table striped bordered hover size="sm" style={styles.scrollY}>
               <thead>
                 <tr>
                   <th>城市</th>
@@ -119,8 +127,12 @@ class AMap extends Component {
             </Table>
           </Col>
           <Col md="8">
-            <Map amapkey="2b783687b92d2f0c3ebc2020bdc29689" center={center}>
-              <Heatmap {...pluginProps} />
+            <Map
+              amapkey="2b783687b92d2f0c3ebc2020bdc29689"
+              center={center}
+              {...mapProps}
+            >
+              {this.renderBuildingMarkers()}
             </Map>
           </Col>
         </Row>

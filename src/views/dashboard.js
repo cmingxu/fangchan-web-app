@@ -21,7 +21,7 @@ class Dashboard extends Component {
       data: [
         {
           color: "hsl(0, 70%, 50%)",
-          id: "undefined",
+          id: "line legend",
           data: []
         }
       ]
@@ -33,7 +33,7 @@ class Dashboard extends Component {
       .then(() => {
         this.setState({ city_name: User.current_user.city_name });
         let data_0 = this.state.data[0];
-        data_0.id = User.current_user.city_name;
+        data_0.id = User.current_user.city_name || "legend";
         this.setState({ data: [data_0] });
       })
       .then(() => {
