@@ -9,11 +9,15 @@ class Circle extends HTTPApi {
     return HTTPApi.get("api/circles/search", option);
   }
 
+  static stats(option) {
+    return HTTPApi.get("api/circles/stats", option);
+  }
+
   static favorite_stats() {
     return HTTPApi.get("api/circles/favorite_stats");
   }
   static trendings(circle_name = "中关村") {
-    return HTTPApi.get("api/circles/trending?circle_name=" + circle_name);
+    return HTTPApi.get("api/circles/trending?circle_name=" + circle_name, {});
   }
 }
 
