@@ -100,14 +100,14 @@ class Settings extends Component {
             label: circle.name
           };
         });
-        this.setState({ availableCircles: options });
+        this.setState({ availableRegions: options });
       });
     }
   };
 
   onRegionChange = selectedOption => {
     let normalizedOption = selectedOption ? selectedOption : [];
-    this.setState({ selectedCircleVo: normalizedOption });
+    this.setState({ selectedRegionVo: normalizedOption });
     if (normalizedOption.length !== 0) {
       let favorite_region_names = normalizedOption.map(option => {
         return option.value;

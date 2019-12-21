@@ -30,11 +30,7 @@ class AMap extends Component {
       .then(res => {
         let centerBuilding = this.state.currentCircleBuildings.find(
           building => {
-            if (building.latitude !== null && building.longitude !== null) {
-              return true;
-            } else {
-              return false;
-            }
+            return building.latitude !== null && building.longitude !== null;
           }
         );
 
