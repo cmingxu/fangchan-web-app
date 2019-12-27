@@ -48,6 +48,7 @@ class Settings extends Component {
             label: building.building_name
           };
         });
+
         this.setState({ availableBuildings: options });
       });
     }
@@ -117,7 +118,6 @@ class Settings extends Component {
   };
 
   render() {
-    const { selectedBuildingVo, availableBuildings } = this.state;
     const { selectedCircleVo, availableCircles } = this.state;
     const { selectedRegionVo, availableRegions } = this.state;
 
@@ -132,8 +132,8 @@ class Settings extends Component {
               title="我关注的楼盘"
               onChange={this.onBuildingChange}
               onInputChange={this.onBuildingInputChange}
-              value={selectedBuildingVo}
-              options={availableBuildings}
+              value={this.state.selectedBuildingVo}
+              options={this.state.availableBuildings}
             ></Favorite>
           </Col>
         </Row>

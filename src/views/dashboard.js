@@ -39,6 +39,7 @@ class Dashboard extends Component {
       .then(() => {
         City.trendings(User.current_user.city_identity).then(res => {
           let data_0 = this.state.data[0];
+          console.log(res);
           data_0.data = res.map(item => {
             let y = 0;
             try {

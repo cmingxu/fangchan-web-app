@@ -5,12 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Select from "react-select";
 
 class Favorite extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { selectedOption: props.selectedOption, option: props.option };
-  }
   render() {
-    const { onChange, onInputChange, title, icon, ...rest } = this.props;
+    const { title, icon, ...rest } = this.props;
 
     return (
       <Card className="w-100 m-1">
@@ -19,7 +15,7 @@ class Favorite extends Component {
           <FontAwesomeIcon icon={icon} size="sm" pull="right"></FontAwesomeIcon>
         </Card.Header>
         <Card.Body>
-          <Select {...rest} onChange={onChange} onInputChange={onInputChange} />
+          <Select {...rest} />
         </Card.Body>
       </Card>
     );

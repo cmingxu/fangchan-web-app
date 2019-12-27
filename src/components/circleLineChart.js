@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Circle from "../api/circles";
 
 const LinechartContainer = styled.div`
-  height: 400px;
+  height: 200px;
 `;
 class CircleLineChart extends Component {
   constructor(props) {
