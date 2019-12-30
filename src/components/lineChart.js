@@ -1,13 +1,20 @@
 import { ResponsiveLine } from "@nivo/line";
 import React, { Component } from "react";
+import data from "./lineExampleData";
 
 class LineChart extends Component {
   constructor(props) {
     super(props);
+    this.fakeData = data[0];
+    this.fakeData.data[0].y = 0;
+    this.fakeData.data[1].y = 0;
+    this.fakeData.data[4].y = 0;
+    this.fakeData.data[3].y = 0;
+
     this.state = { data: props.data, legend: props.legend };
-    console.log(this.state);
   }
   render() {
+    console.log(this.state.data);
     return (
       <ResponsiveLine
         data={this.state.data}

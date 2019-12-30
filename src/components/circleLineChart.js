@@ -16,7 +16,10 @@ class CircleLineChart extends Component {
   componentWillMount() {
     Circle.trendings(this.state.circleName).then(res => {
       let data = res.map(item => {
-        return { x: item.begin_date, y: parseFloat(item.avg_price_per_day) };
+        return {
+          x: item.begin_date,
+          y: parseFloat(item.avg_price_per_day)
+        };
       });
       this.setState({
         data: this.state.data.push({

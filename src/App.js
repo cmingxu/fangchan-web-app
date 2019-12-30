@@ -71,19 +71,6 @@ class App extends Component {
             <Nav className="mr-auto">
               <Nav.Link href="/dashboard">主页</Nav.Link>
               <Nav.Link href="/setting">设置</Nav.Link>
-              {/*
-            <NavDropdown title="更多" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-            */}
             </Nav>
             <Form inline>
               <FormControl type="text" placeholder="搜索" className="mr-sm-2" />

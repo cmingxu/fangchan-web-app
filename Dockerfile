@@ -2,6 +2,7 @@ FROM drecom/centos-ruby:2.4.5
 
 RUN export DEBIAN_FRONTEND=noninteractive && yum update -y && yum groupinstall "Development Tools" -y
 RUN curl -sL https://rpm.nodesource.com/setup_12.x |  bash - && yum install nodejs -y
+# RUN yum install nodejs -y
 
 COPY . /app
 
