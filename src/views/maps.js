@@ -56,11 +56,20 @@ class AMap extends Component {
           longitude: parseFloat(building.longitude),
           latitude: parseFloat(building.latitude)
         };
+
+        let renderContent = building => {
+          return `<div style="background-color: green; padding: 5px; color: white; position: relative;white-space:nowrap;">
+          <strong>${building.building_name}</strong>
+          <span> ${building.avg_price_per_day}元 平米/天  </span>
+          </div>`;
+        };
+
         return (
           <Marker
             key={position.latitude}
             visible={true}
             position={position}
+            content={renderContent(building)}
           ></Marker>
         );
       });
@@ -93,7 +102,7 @@ class AMap extends Component {
 
   render() {
     const { center } = this.state;
-    const zoom = 13;
+    const zoom = 17;
 
     const mapProps = {
       zoom
