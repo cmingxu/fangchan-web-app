@@ -71,12 +71,12 @@ class Dashboard extends Component {
     });
   }
   renderBuildings() {
-    return this.state.buildingStats.map((stats, idx) => {
+    return this.state.buildingStats.map(stats => {
       let text = `出租总套数${stats.total_count}, 总面积${stats.total_square}平方米`;
       return (
         <Col md="3" lg="2">
           <Figure
-            key={idx}
+            key={stats.name}
             title={stats.name}
             text={text}
             avg_price_per_day={stats.avg_price_per_day}

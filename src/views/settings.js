@@ -57,12 +57,10 @@ class Settings extends Component {
   onBuildingChange = selectedOption => {
     let normalizedOption = selectedOption ? selectedOption : [];
     this.setState({ selectedBuildingVo: normalizedOption });
-    if (normalizedOption.length !== 0) {
-      let favorite_building_names = normalizedOption.map(option => {
-        return option.value;
-      });
-      User.current_user.update_favorite_buildings(favorite_building_names);
-    }
+    let favorite_building_names = normalizedOption.map(option => {
+      return option.value;
+    });
+    User.current_user.update_favorite_buildings(favorite_building_names);
   };
 
   onCircleInputChange = value => {
@@ -83,12 +81,10 @@ class Settings extends Component {
   onCircleChange = selectedOption => {
     let normalizedOption = selectedOption ? selectedOption : [];
     this.setState({ selectedCircleVo: normalizedOption });
-    if (normalizedOption.length !== 0) {
-      let favorite_circle_names = normalizedOption.map(option => {
-        return option.value;
-      });
-      User.current_user.update_favorite_circles(favorite_circle_names);
-    }
+    let favorite_circle_names = normalizedOption.map(option => {
+      return option.value;
+    });
+    User.current_user.update_favorite_circles(favorite_circle_names);
   };
 
   onRegionInputChange = value => {
@@ -109,12 +105,10 @@ class Settings extends Component {
   onRegionChange = selectedOption => {
     let normalizedOption = selectedOption ? selectedOption : [];
     this.setState({ selectedRegionVo: normalizedOption });
-    if (normalizedOption.length !== 0) {
-      let favorite_region_names = normalizedOption.map(option => {
-        return option.value;
-      });
-      User.current_user.update_favorite_regions(favorite_region_names);
-    }
+    let favorite_region_names = normalizedOption.map(option => {
+      return option.value;
+    });
+    User.current_user.update_favorite_regions(favorite_region_names);
   };
 
   render() {
